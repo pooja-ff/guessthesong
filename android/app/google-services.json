@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "216126814847",
+    "project_id": "guessthesong-bcbaf",
+    "storage_bucket": "guessthesong-bcbaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216126814847:android:5a8a912e8ba9827a901d4a",
+        "android_client_info": {
+          "package_name": "com.poojabhaumik.guessthesong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216126814847-motn1lkdlokimn8dtm9f68rg0fkf9g78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.poojabhaumik.guessthesong",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "216126814847-p6kgt11rf609r4mdiodmfcsqeuqf9ifp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlqCdJWIShwQH3TukSeH1HEx9OVdpf0aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216126814847-p6kgt11rf609r4mdiodmfcsqeuqf9ifp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "216126814847-tc9alit4f8204vrm5afevjnc7c0ehvpg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.poojabhaumik.guessthesong"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
