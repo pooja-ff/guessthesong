@@ -14,9 +14,7 @@ import 'package:provider/provider.dart';
 class StartGamePageCopyModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
-  int score = 0;
-
-  bool isQuizStart = false;
+  bool hasAnswered = false;
 
   ///  State fields for stateful widgets in this page.
 

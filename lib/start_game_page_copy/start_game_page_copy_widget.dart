@@ -50,7 +50,9 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
           .setUrl(FFAppState().currentSong.song)
           .then((_) => _model.soundPlayer!.play());
 
-      if (FFAppState().songList.length != (widget.currentIndex + 1)) {
+      if (FFAppState().songList.length == (widget.currentIndex + 1)) {
+        context.goNamed('ScorePage');
+      } else {
         setState(() {
           FFAppState().currentSong = FFAppState().songList[valueOrDefault<int>(
             widget.currentIndex + 1,
@@ -148,12 +150,19 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  if (guessOptionsIndex ==
-                                      FFAppState().currentSong.correctOption) {
+                                  if ((guessOptionsIndex ==
+                                          FFAppState()
+                                              .currentSong
+                                              .correctOption) &&
+                                      _model.hasAnswered) {
                                     setState(() {
-                                      _model.score = _model.score + 10;
+                                      FFAppState().finalScore =
+                                          FFAppState().finalScore + 10;
                                     });
                                   }
+                                  setState(() {
+                                    _model.hasAnswered = true;
+                                  });
                                 },
                                 child: wrapWithModel(
                                   model: _model.optionItemModels.getModel(
@@ -176,7 +185,7 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
                     ),
                   ),
                   Text(
-                    'Current Score: ${_model.score.toString()}',
+                    'Current Score: ${FFAppState().finalScore.toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium,
                   ),
                 ],

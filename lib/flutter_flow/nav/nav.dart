@@ -120,6 +120,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             document: params.getParam('document', ParamType.Document),
             currentIndex: params.getParam('currentIndex', ParamType.int),
           ),
+        ),
+        FFRoute(
+          name: 'ScorePage',
+          path: '/scorePage',
+          builder: (context, params) => ScorePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

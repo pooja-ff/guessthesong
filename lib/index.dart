@@ -4,3 +4,4 @@ export '/start_game_page/start_game_page_widget.dart' show StartGamePageWidget;
 export '/add_song_page/add_song_page_widget.dart' show AddSongPageWidget;
 export '/start_game_page_copy/start_game_page_copy_widget.dart'
     show StartGamePageCopyWidget;
+export '/score_page/score_page_widget.dart' show ScorePageWidget;

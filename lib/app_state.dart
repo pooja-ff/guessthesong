@@ -70,6 +70,12 @@ class FFAppState extends ChangeNotifier {
   void updateCurrentSongStruct(Function(SongStruct) updateFn) {
     updateFn(_currentSong);
   }
+
+  int _finalScore = 0;
+  int get finalScore => _finalScore;
+  set finalScore(int _value) {
+    _finalScore = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
