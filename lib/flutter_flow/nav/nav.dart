@@ -109,6 +109,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AddSongPage',
           path: '/addSongPage',
           builder: (context, params) => AddSongPageWidget(),
+        ),
+        FFRoute(
+          name: 'StartGamePageCopy',
+          path: '/startGamePageCopy',
+          asyncParams: {
+            'document': getDoc(['artist'], ArtistRecord.fromSnapshot),
+          },
+          builder: (context, params) => StartGamePageCopyWidget(
+            document: params.getParam('document', ParamType.Document),
+            currentIndex: params.getParam('currentIndex', ParamType.int),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

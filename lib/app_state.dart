@@ -35,6 +35,41 @@ class FFAppState extends ChangeNotifier {
         ? prefs.setString('ff_taylorRef', _value.path)
         : prefs.remove('ff_taylorRef');
   }
+
+  List<SongStruct> _songList = [];
+  List<SongStruct> get songList => _songList;
+  set songList(List<SongStruct> _value) {
+    _songList = _value;
+  }
+
+  void addToSongList(SongStruct _value) {
+    _songList.add(_value);
+  }
+
+  void removeFromSongList(SongStruct _value) {
+    _songList.remove(_value);
+  }
+
+  void removeAtIndexFromSongList(int _index) {
+    _songList.removeAt(_index);
+  }
+
+  void updateSongListAtIndex(
+    int _index,
+    SongStruct Function(SongStruct) updateFn,
+  ) {
+    _songList[_index] = updateFn(_songList[_index]);
+  }
+
+  SongStruct _currentSong = SongStruct();
+  SongStruct get currentSong => _currentSong;
+  set currentSong(SongStruct _value) {
+    _currentSong = _value;
+  }
+
+  void updateCurrentSongStruct(Function(SongStruct) updateFn) {
+    updateFn(_currentSong);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

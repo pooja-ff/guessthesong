@@ -16,10 +16,6 @@ final player = AudioPlayer(); // Create a player
 
 Future playCurrentSong(String songUrl) async {
   // Add your function code here!
-  final duration = await player.setUrl(// Load a URL
-      songUrl);
-  player.play(); // Play without waiting for completion
+  final duration = await player.setUrl(songUrl);
   await player.play(); // Play while waiting for completion
-  await Duration(seconds: 10); // Jump to the 10 second position
-  await player.stop();
 }

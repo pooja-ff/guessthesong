@@ -12,10 +12,12 @@ class SongStruct extends FFFirebaseStruct {
     String? songUrl,
     List<String>? guessOptions,
     int? correctOption,
+    String? song,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _songUrl = songUrl,
         _guessOptions = guessOptions,
         _correctOption = correctOption,
+        _song = song,
         super(firestoreUtilData);
 
   // "song_url" field.
@@ -40,10 +42,17 @@ class SongStruct extends FFFirebaseStruct {
       _correctOption = correctOption + amount;
   bool hasCorrectOption() => _correctOption != null;
 
+  // "song" field.
+  String? _song;
+  String get song => _song ?? '';
+  set song(String? val) => _song = val;
+  bool hasSong() => _song != null;
+
   static SongStruct fromMap(Map<String, dynamic> data) => SongStruct(
         songUrl: data['song_url'] as String?,
         guessOptions: getDataList(data['guess_options']),
         correctOption: castToType<int>(data['correct_option']),
+        song: data['song'] as String?,
       );
 
   static SongStruct? maybeFromMap(dynamic data) =>
@@ -53,6 +62,7 @@ class SongStruct extends FFFirebaseStruct {
         'song_url': _songUrl,
         'guess_options': _guessOptions,
         'correct_option': _correctOption,
+        'song': _song,
       }.withoutNulls;
 
   @override
@@ -69,6 +79,10 @@ class SongStruct extends FFFirebaseStruct {
         'correct_option': serializeParam(
           _correctOption,
           ParamType.int,
+        ),
+        'song': serializeParam(
+          _song,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -89,6 +103,11 @@ class SongStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        song: deserializeParam(
+          data['song'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -100,17 +119,19 @@ class SongStruct extends FFFirebaseStruct {
     return other is SongStruct &&
         songUrl == other.songUrl &&
         listEquality.equals(guessOptions, other.guessOptions) &&
-        correctOption == other.correctOption;
+        correctOption == other.correctOption &&
+        song == other.song;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([songUrl, guessOptions, correctOption]);
+      const ListEquality().hash([songUrl, guessOptions, correctOption, song]);
 }
 
 SongStruct createSongStruct({
   String? songUrl,
   int? correctOption,
+  String? song,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -119,6 +140,7 @@ SongStruct createSongStruct({
     SongStruct(
       songUrl: songUrl,
       correctOption: correctOption,
+      song: song,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -128,11 +150,11 @@ SongStruct createSongStruct({
     );
 
 SongStruct? updateSongStruct(
-  SongStruct? song, {
+  SongStruct? songStruct, {
   bool clearUnsetFields = true,
   bool create = false,
 }) =>
-    song
+    songStruct
       ?..firestoreUtilData = FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -140,46 +162,48 @@ SongStruct? updateSongStruct(
 
 void addSongStructData(
   Map<String, dynamic> firestoreData,
-  SongStruct? song,
+  SongStruct? songStruct,
   String fieldName, [
   bool forFieldValue = false,
 ]) {
   firestoreData.remove(fieldName);
-  if (song == null) {
+  if (songStruct == null) {
     return;
   }
-  if (song.firestoreUtilData.delete) {
+  if (songStruct.firestoreUtilData.delete) {
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
-  final clearFields = !forFieldValue && song.firestoreUtilData.clearUnsetFields;
+  final clearFields =
+      !forFieldValue && songStruct.firestoreUtilData.clearUnsetFields;
   if (clearFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
-  final songData = getSongFirestoreData(song, forFieldValue);
-  final nestedData = songData.map((k, v) => MapEntry('$fieldName.$k', v));
+  final songStructData = getSongFirestoreData(songStruct, forFieldValue);
+  final nestedData = songStructData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final mergeFields = song.firestoreUtilData.create || clearFields;
+  final mergeFields = songStruct.firestoreUtilData.create || clearFields;
   firestoreData
       .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
 }
 
 Map<String, dynamic> getSongFirestoreData(
-  SongStruct? song, [
+  SongStruct? songStruct, [
   bool forFieldValue = false,
 ]) {
-  if (song == null) {
+  if (songStruct == null) {
     return {};
   }
-  final firestoreData = mapToFirestore(song.toMap());
+  final firestoreData = mapToFirestore(songStruct.toMap());
 
   // Add any Firestore field values
-  song.firestoreUtilData.fieldValues.forEach((k, v) => firestoreData[k] = v);
+  songStruct.firestoreUtilData.fieldValues
+      .forEach((k, v) => firestoreData[k] = v);
 
   return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
 }
 
 List<Map<String, dynamic>> getSongListFirestoreData(
-  List<SongStruct>? songs,
+  List<SongStruct>? songStructs,
 ) =>
-    songs?.map((e) => getSongFirestoreData(e, true)).toList() ?? [];
+    songStructs?.map((e) => getSongFirestoreData(e, true)).toList() ?? [];

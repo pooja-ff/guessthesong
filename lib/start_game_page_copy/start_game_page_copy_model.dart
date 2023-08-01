@@ -4,8 +4,6 @@ import '/components/option_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
-class StartGamePageModel extends FlutterFlowModel {
+class StartGamePageCopyModel extends FlutterFlowModel {
   ///  Local state fields for this page.
-
-  int quesIndex = 0;
-
-  List<SongStruct> songList = [];
-  void addToSongList(SongStruct item) => songList.add(item);
-  void removeFromSongList(SongStruct item) => songList.remove(item);
-  void removeAtIndexFromSongList(int index) => songList.removeAt(index);
-  void updateSongListAtIndex(int index, Function(SongStruct) updateFn) =>
-      songList[index] = updateFn(songList[index]);
-
-  SongStruct? currentSong;
-  void updateCurrentSongStruct(Function(SongStruct) updateFn) =>
-      updateFn(currentSong ??= SongStruct());
 
   int score = 0;
 
@@ -38,16 +23,6 @@ class StartGamePageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for StartTimer widget.
-  int startTimerMilliseconds = 10000;
-  String startTimerValue = StopWatchTimer.getDisplayTime(
-    10000,
-    hours: false,
-    milliSecond: false,
-  );
-  StopWatchTimer startTimerController =
-      StopWatchTimer(mode: StopWatchMode.countDown);
-
   AudioPlayer? soundPlayer;
   // State field(s) for Timer widget.
   int timerMilliseconds = 11000;
@@ -70,17 +45,11 @@ class StartGamePageModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    startTimerController.dispose();
     timerController.dispose();
     optionItemModels.dispose();
   }
 
   /// Action blocks are added here.
-
-  Future updateCurrentSong(BuildContext context) async {
-    quesIndex = quesIndex + 1;
-    currentSong = songList[quesIndex];
-  }
 
   /// Additional helper methods are added here.
 }

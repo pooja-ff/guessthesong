@@ -1,8 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -210,16 +212,26 @@ class _GameLoginPageWidgetState extends State<GameLoginPageWidget> {
                           .where('artist_name', isEqualTo: 'taylor'),
                       singleRecord: true,
                     ).then((s) => s.firstOrNull);
-                    setState(() {
-                      FFAppState().taylorRef = _model.backendQuery?.reference;
+                    FFAppState().taylorRef = _model.backendQuery?.reference;
+                    FFAppState().songList = functions
+                        .getRandomQuestionList(
+                            _model.backendQuery!.taylorSongList.toList())
+                        .toList()
+                        .cast<SongStruct>();
+                    FFAppState().update(() {
+                      FFAppState().currentSong = FFAppState().songList[0];
                     });
 
                     context.pushNamed(
-                      'StartGamePage',
+                      'StartGamePageCopy',
                       queryParameters: {
                         'document': serializeParam(
                           _model.backendQuery,
                           ParamType.Document,
+                        ),
+                        'currentIndex': serializeParam(
+                          0,
+                          ParamType.int,
                         ),
                       }.withoutNulls,
                       extra: <String, dynamic>{
