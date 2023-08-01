@@ -50,13 +50,14 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
           .setUrl(FFAppState().currentSong.song)
           .then((_) => _model.soundPlayer!.play());
 
-      setState(() {
-        FFAppState().currentSong = FFAppState().songList[valueOrDefault<int>(
-          widget.currentIndex + 1,
-          0,
-        )];
-      });
       if (FFAppState().songList.length != (widget.currentIndex + 1)) {
+        setState(() {
+          FFAppState().currentSong = FFAppState().songList[valueOrDefault<int>(
+            widget.currentIndex + 1,
+            0,
+          )];
+        });
+
         context.pushNamed(
           'StartGamePageCopy',
           queryParameters: {
