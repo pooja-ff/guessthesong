@@ -2,10 +2,8 @@ import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/option_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -24,16 +22,6 @@ class StartGamePageCopyModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   AudioPlayer? soundPlayer;
-  // State field(s) for Timer widget.
-  int timerMilliseconds = 11000;
-  String timerValue = StopWatchTimer.getDisplayTime(
-    11000,
-    hours: false,
-    milliSecond: false,
-  );
-  StopWatchTimer timerController =
-      StopWatchTimer(mode: StopWatchMode.countDown);
-
   // Models for OptionItem dynamic component.
   late FlutterFlowDynamicModels<OptionItemModel> optionItemModels;
 
@@ -45,7 +33,6 @@ class StartGamePageCopyModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    timerController.dispose();
     optionItemModels.dispose();
   }
 

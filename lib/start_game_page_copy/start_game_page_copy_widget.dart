@@ -2,10 +2,8 @@ import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/option_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -48,14 +46,35 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
         await _model.soundPlayer!.stop();
       }
       _model.soundPlayer!.setVolume(1.0);
-      _model.soundPlayer!
+      await _model.soundPlayer!
           .setUrl(FFAppState().currentSong.song)
           .then((_) => _model.soundPlayer!.play());
 
-      _model.timerController.onExecute.add(StopWatchExecute.start);
+      setState(() {
+        FFAppState().currentSong = FFAppState().songList[valueOrDefault<int>(
+          widget.currentIndex + 1,
+          0,
+        )];
+      });
+      if (FFAppState().songList.length != (widget.currentIndex + 1)) {
+        context.pushNamed(
+          'StartGamePageCopy',
+          queryParameters: {
+            'document': serializeParam(
+              widget.document,
+              ParamType.Document,
+            ),
+            'currentIndex': serializeParam(
+              widget.currentIndex + 1,
+              ParamType.int,
+            ),
+          }.withoutNulls,
+          extra: <String, dynamic>{
+            'document': widget.document,
+          },
+        );
+      }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -87,51 +106,6 @@ class _StartGamePageCopyWidgetState extends State<StartGamePageCopyWidget> {
                   Text(
                     'Current Ques: ${widget.currentIndex.toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium,
-                  ),
-                  FlutterFlowTimer(
-                    initialTime: _model.timerMilliseconds,
-                    getDisplayTime: (value) => StopWatchTimer.getDisplayTime(
-                      value,
-                      hours: false,
-                      milliSecond: false,
-                    ),
-                    timer: _model.timerController,
-                    updateStateInterval: Duration(milliseconds: 1000),
-                    onChanged: (value, displayTime, shouldUpdate) {
-                      _model.timerMilliseconds = value;
-                      _model.timerValue = displayTime;
-                      if (shouldUpdate) setState(() {});
-                    },
-                    onEnded: () async {
-                      setState(() {
-                        FFAppState().currentSong =
-                            FFAppState().songList[valueOrDefault<int>(
-                          widget.currentIndex + 1,
-                          0,
-                        )];
-                      });
-                      if (FFAppState().songList.length !=
-                          (widget.currentIndex + 1)) {
-                        context.pushNamed(
-                          'StartGamePageCopy',
-                          queryParameters: {
-                            'document': serializeParam(
-                              widget.document,
-                              ParamType.Document,
-                            ),
-                            'currentIndex': serializeParam(
-                              widget.currentIndex + 1,
-                              ParamType.int,
-                            ),
-                          }.withoutNulls,
-                          extra: <String, dynamic>{
-                            'document': widget.document,
-                          },
-                        );
-                      }
-                    },
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).headlineSmall,
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.0, 0.0),
